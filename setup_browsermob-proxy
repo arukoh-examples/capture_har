@@ -1,0 +1,22 @@
+#!/bin/bash
+
+NAME=browsermob-proxy
+VERSION=2.0.0
+FULLNAME=$NAME-$VERSION
+URL=https://github.com/lightbody/browsermob-proxy/releases/download/$FULLNAME/$FULLNAME-bin.zip
+DIR=$(pwd)/tmp
+UNZIPED=$DIR/$FULLNAME
+TARGET=$UNZIPED
+LINK_NAME=$DIR/$NAME
+
+[ ! -e $DIR ] && mkdir -p $DIR
+[ -e $UNZIPED ] && rm -rf $UNZIPED
+
+TMPFILE=`mktemp`
+wget "$URL" -O $TMPFILE && unzip -d $DIR $TMPFILE
+rm $TMPFILE
+
+[ -e $LINK_NAME ] && rm $LINK_NAME
+echo $TARGET
+echo $LINK_NAME
+ln -s $TARGET $LINK_NAME
